@@ -1,8 +1,8 @@
 
 from dynasty.model_handling.mdp_handling import *
 import logging
-import math
 import time
+import stormpy.core
 
 from collections import OrderedDict, Counter
 
@@ -233,7 +233,6 @@ class JaniQuotientContainer:
             hole_option_map = self._selected_hole_counts_incremental(state_map, action_map, self._latest_result.lower_bound_result,
                                                          self._latest_result.upper_bound_result)
             logger.debug("Selected holes in scheduler: {}".format(hole_option_map))
-            print(hole_option_map)
 
             self._inconsistencies.append(self._inconsistent_options(hole_option_map))
             self._hole_option_maps.append(hole_option_map)
@@ -246,7 +245,6 @@ class JaniQuotientContainer:
                 autedgeindices = mdp.choice_origins.get_edge_index_set(actindex)
                 act_to_color[actindex] = set([self._color_for_choice_origin(e) for e in autedgeindices])
         color_map = OrderedDict()
-        print(act_to_color)
         for act, colors in act_to_color.items():
             assigns = self._edge_coloring.get_hole_assignment_set_colors(colors)
             if len(assigns) > 0:
@@ -277,7 +275,6 @@ class JaniQuotientContainer:
                 for o in option_selection_map:
                     e.add(o)
                 selected_hole_option_map[hole] = e
-        #print(selected_hole_option_map)
 
     def _selected_hole_counts_incremental(self, state_map, action_map, mc_lower_result, mc_upper_result ):
         selected_hole_option_map = OrderedDict()
@@ -322,7 +319,7 @@ class JaniQuotientContainer:
         for h, counts in hole_option_map.items():
             if len(counts) > 1:
                 inconsistent[h] = (max(counts.values())/100, max(counts.keys(), key=lambda x: counts.get(x)), len(counts))
-        print(inconsistent)
+        logger.debug("Inconsistent options: %s " % inconsistent)
         if len(inconsistent) == 0:
             logger.debug("Found consistent scheduler: {}".format(hole_option_map))
 
@@ -334,11 +331,14 @@ class JaniQuotientContainer:
         # I guess we will use it multiple times.
 
     def decided(self, threshold):
+        logger.debug(f"Absolute minimum: {self._latest_result.absolute_max}, Absolute maximum {self._latest_result.absolute_max}, threshold: {threshold}")
         if threshold > self._latest_result.absolute_max:
             logger.debug("Absolute maximum {} is below threshold {}".format(self._latest_result.absolute_max, threshold))
             return ThresholdSynthesisResult.BELOW
-        elif threshold < self._latest_result.absolute_min:
+        elif threshold <= self._latest_result.absolute_min:
+            logger.debug("Absolute minimum {} is above threshold {}".format(self._latest_result.absolute_max, threshold))
             return ThresholdSynthesisResult.ABOVE
+        logger.debug("Threshold is between")
         return ThresholdSynthesisResult.UNDECIDED
 
     def upper_bound(self):
@@ -367,7 +367,6 @@ class JaniQuotientContainer:
         assert len(self._inconsistencies) == 2
         # is there an inconsistency in both schedulers:
         proposed_split = self._compute_differences(self._hole_option_maps[0], self._hole_option_maps[1])#self._merge_inconsistencies()
-        #proposed_split = None
         if proposed_split is not None:
             end_time = time.time()
             self._sched_ana_time += end_time - start_time

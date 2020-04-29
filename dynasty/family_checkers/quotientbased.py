@@ -373,8 +373,7 @@ class LiftingChecker(QuotientBasedFamilyChecker):
         if not isinstance(other_side_list, Iterable):
             other_side_list = [other_side_list]
 
-        logger.debug("Presplit {} vs. {}".format(one_side_list, other_side_list))
-        # logger.debug(other_side_list)
+        logger.debug("Proposed (pre)split: {} vs. {}".format(one_side_list, other_side_list))
 
         if selected_splitter is None:
             # Split longest.

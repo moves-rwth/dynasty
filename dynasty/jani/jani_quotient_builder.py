@@ -185,7 +185,6 @@ class JaniQuotientBuilder:
 
                     if len(expand_d) > 0: #TODO
                         for combination in itertools.product(*[(range(len(holes_options[c.name])) if c in expand_d else [None]) for c in self._open_constants.values()]):
-                            #print(combination)
                             edge_color = edge_coloring.get_or_make_color(combination)
                             substitution = {c.expression_variable : holes_options[c.name][v] for c,v in zip(self._open_constants.values(), combination) if v is not None}
                             new_dests = [(d.target_location_index, d.probability.substitute(substitution)) for d in edge.destinations]
