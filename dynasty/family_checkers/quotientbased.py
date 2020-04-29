@@ -382,30 +382,29 @@ class LiftingChecker(QuotientBasedFamilyChecker):
                 maxlength = max(maxlength, len(v))
                 if len(v) == maxlength:
                     selected_splitter = k
-
             if maxlength == 1:
                 return []
-        for k, v in hole_options.items():
-            if k == selected_splitter:
-                logger.debug("Splitting {}...".format(v))
-                assert len(v) > 1, "Cannot split along {}".format(k)
 
-                one_vals = [self.hole_options[k][one_side] for one_side in one_side_list if one_side is not None]
-                other_vals = [self.hole_options[k][other_side] for other_side in other_side_list if
-                              other_side is not None]
-                logger.debug("Pre-splitted {} and {}".format(one_vals, other_vals))
-                new_v = [x for x in v if x not in one_vals + other_vals]
-                logger.debug("Now distribute {}".format(new_v))
-                second, first = split_list(new_v)
-                # if one_side is not None:
-                first = first + one_vals
-                # if other_side is not None:
-                second = second + other_vals
-                splitters.append([k, first, second])
+        options = hole_options[selected_splitter]
+        logger.debug("Splitting {}...".format([str(val) for val in options]))
+        assert len(options) > 1, "Cannot split along {}".format(selected_splitter)
 
-                logger.info("Splitting {} into {} and {}".format(k, "[" + ",".join([str(x) for x in first]) + "]",
-                                                                 "[" + ",".join([str(x) for x in second]) + "]"))
-                break
+        one_vals = [self.hole_options[selected_splitter][one_side] for one_side in one_side_list if one_side is not None]
+        other_vals = [self.hole_options[selected_splitter][other_side] for other_side in other_side_list if
+                      other_side is not None]
+        logger.debug("Pre-splitted {} and {}".format(one_vals, other_vals))
+        remaining_options = [x for x in options if x not in one_vals + other_vals]
+        logger.debug("Now distribute {}".format(remaining_options))
+        second, first = split_list(remaining_options)
+        # if one_side is not None:
+        first = first + one_vals
+        # if other_side is not None:
+        second = second + other_vals
+        splitters.append([selected_splitter, first, second])
+
+        logger.info("Splitting {} into {} and {}".format(selected_splitter, "[" + ",".join([str(x) for x in first]) + "]",
+                                                             "[" + ",".join([str(x) for x in second]) + "]"))
+
 
         # Split.
         assert len(splitters) == 1
