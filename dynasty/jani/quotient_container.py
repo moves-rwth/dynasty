@@ -196,6 +196,8 @@ class JaniQuotientContainer:
 
     def scheduler_color_analysis(self):
         if self._mdp_handling.submodel_is_dtmc():
+            self._hole_option_maps = []
+            self._inconsistencies = []
             # NOthing to do
             return
         start_time = time.time()
