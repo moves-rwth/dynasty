@@ -2,14 +2,21 @@ Dynasty
 =================================================
 [![Build Status](https://travis-ci.org/moves-rwth/dynasty.svg?branch=master)](https://travis-ci.org/moves-rwth/dynasty)
 
-This project contains prototypical implementations of synthesis in probabilistic program sketches.
+Dynasty contains algorithms for synthesis in probabilistic program sketches.
 
-It contains algorithms based on:
+Some of the algorithms have been published:
 - [1] Milan Ceska, Christian Hensel, Sebastian Junges, Joost-Pieter Katoen: Counterexample-Driven Synthesis for Probabilistic Program Sketches, FM 2019
 - [2] Milan Ceska, Nils Jansen, Sebastian Junges, Joost-Pieter Katoen: Shepherding Hordes of Markov chains, TACAS 2019
 
-The code has been developed by Sebastian Junges.
-More information can be found in his PhD thesis.
+An overview is given in:
+- [3] 	Milan Ceska, Christian Dehnert, Nils Jansen, Sebastian Junges, Joost-Pieter Katoen: Model Repair Revamped: On the Automated Synthesis of Markov Chains
+
+And many more details can be found in:
+- [4] Sebastian Junges: Parameter Synthesis in Markov Models, PhD Thesis, RWTH Aachen University, 2020
+
+## Overview
+We first give some installation guideline, and then go into some usage examples.
+A [getting started guide](TODO) that walks users through some options is provided seperately.
 
 ## Installation
 
@@ -37,7 +44,6 @@ To run the tests, run:
 python -m pytest dynasty_tests
 ```
 
-
 ### Docker container
 
 We automatically provide a [docker container](https://hub.docker.com/repository/docker/movesrwth/dynasty) with everything pre-installed.
@@ -50,12 +56,12 @@ We support three types of problems
  - Optimal Feasibility Analysis
  - Partitioning (or Threshold analysis)
  
-We support three methods:
+We support five methods:
  - CEGIS [1]
  - Lifting [2]
  - (Consistent) Scheduler enumeration [2]
- 
-and have experimental code support for (rapid) one-by-one, all-in-one, and SMT-based synthesis. 
+ - SmartSearch [to be published]
+ - All-in-one [Chroszon et al, Formal Asp Comput]
 
 As input, we take projects. Below, we first explain what a project is, and then discuss the different analysis types and how to invoke the different methods for these problems. 
 For details about the methods, we refer to the publications mentioned above. 
