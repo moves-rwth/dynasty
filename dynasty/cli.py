@@ -83,7 +83,6 @@ def dynasty(project, sketch, allowed, properties, optimality, restrictions, cons
     else:
         assert None
 
-
     sketch_path = os.path.join(project, sketch)
     allowed_path = os.path.join(project, allowed)
     if restrictions:
@@ -119,11 +118,11 @@ def dynasty(project, sketch, allowed, properties, optimality, restrictions, cons
             sat, solution, optimal_value = result
             if sat:
                 print("Satisfiable!")
-                print("using " + ", ".join([str(k) + ": " + str(v) for k,v in solution.items()]))
+                if solution is not None:
+                    print("using " + ", ".join([str(k) + ": " + str(v) for k,v in solution.items()]))
                 if optimal_value is not None:
                     print("and induces a value of {}".format(optimal_value))
                 # print(algorithm.build_instance(solution))
-
             else:
                 print("Unsatisfiable!")
         else:
