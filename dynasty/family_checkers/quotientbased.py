@@ -427,11 +427,42 @@ class AllInOneChecker(QuotientBasedFamilyChecker):
     """
 
     def run_feasibility(self):
+        if self.input_has_optimality_property():
+            return self._run_optimal_feasibility()
+        if self.input_has_multiple_properties():
+            raise RuntimeError("All-in-one is only implemented for single properties")
+        if self.input_has_restrictions():
+            raise RuntimeError("All-in-one currently cannot support restrictions")
+
         self.jani_quotient_builder = JaniQuotientBuilder(self.sketch, self.holes)
         self._open_constants = self.holes
         logger.info("Total number of options: {}".format(self.hole_options.size()))
 
-        _ = self._analyse_from_scratch(self._open_constants, self.hole_options, self._open_constants.keys(), 0)
+        quotient_container = self._analyse_from_scratch(self._open_constants, self.hole_options, self._open_constants.keys(), 0)
+        logger.info(f"Result obtained... now compare with {self.thresholds}")
+        result = quotient_container.decided(self.thresholds[0])
+        assert result != ThresholdSynthesisResult.UNDECIDED, "All-in-one should not yield undecided result"
+        if self._accept_if_above[0]:
+            return result == ThresholdSynthesisResult.ABOVE, None, None
+        else:
+            assert self._accept_if_below[0]
+            return result == ThresholdSynthesisResult.BELOW, None, None
+
+    def _run_optimal_feasibility(self):
+        if self.input_has_multiple_properties():
+            raise RuntimeError("All-in-one with optimal feasibility is only implemented for single properties")
+        if self.input_has_restrictions():
+            raise RuntimeError("All-in-one currently cannot support restrictions")
+        self.jani_quotient_builder = JaniQuotientBuilder(self.sketch, self.holes)
+        self._open_constants = self.holes
+        logger.info("Total number of options: {}".format(self.hole_options.size()))
+
+        quotient_container = self._analyse_from_scratch(self._open_constants, self.hole_options,
+                                                        self._open_constants.keys(), 0)
+        if self._optimality_setting.direction == "min":
+            return True, None, quotient_container.lower_bound()
+        else:
+            return True, None, quotient_container.upper_bound()
 
 
 class OneByOneChecker(QuotientBasedFamilyChecker):
