@@ -350,12 +350,16 @@ class JaniQuotientContainer:
         return self._latest_result.absolute_min
 
     def is_lower_bound_tight(self):
+        if self._mdp_handling.submodel_is_dtmc():
+            return True
         return len(self._lower_bound_inconsistencies()) == 0
 
     def _lower_bound_inconsistencies(self):
         return self._inconsistencies[1] if self._latest_result.maximising else self._inconsistencies[0]
 
     def is_upper_bound_tight(self):
+        if self._mdp_handling.submodel_is_dtmc():
+            return True
         return len(self._upper_bound_inconsistencies()) == 0
 
     def _upper_bound_inconsistencies(self):
