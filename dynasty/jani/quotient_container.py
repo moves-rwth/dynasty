@@ -1,14 +1,15 @@
-
-from dynasty.model_handling.mdp_handling import *
+from collections import OrderedDict, Counter
+from enum import Enum
 import logging
 import time
+
 import stormpy.core
 
-from collections import OrderedDict, Counter
+from dynasty.model_handling.mdp_handling import *
 
 logger = logging.getLogger(__name__)
 
-from enum import Enum
+
 class ThresholdSynthesisResult(Enum):
      ABOVE = 1
      BELOW = 2
@@ -34,9 +35,11 @@ def _compute_choice_origins_to_colors(jani):
                 result[jani.encode_automaton_and_edge_index(automaton_index, edge_index)] = edge.color
     return result
 
+
 class InconsistencyInfo:
     def __init__(self):
         pass
+
 
 class JaniQuotientContainer:
     """
@@ -71,13 +74,11 @@ class JaniQuotientContainer:
         start_time = time.time()
 
         subcolors = self._edge_coloring.subcolors(indexed_suboptions)
-        #print(subcolors)
 
         color_0_indices = self._color_to_edge_indices.get(0)
         collected_edge_indices = stormpy.FlatSet(color_0_indices)
         for c in subcolors:
             collected_edge_indices.insert_set(self._color_to_edge_indices.get(c))
-
 
         logger.debug("restrict MDP")
         self._mdp_handling.restrict(collected_edge_indices, color_0_indices)
@@ -295,7 +296,6 @@ class JaniQuotientContainer:
             for hole, option_selection in self._full_colors.get(orig_action_id, dict()).items():
                 selected_hole_option_map[hole].update(option_selection)
         return selected_hole_option_map
-
 
     def _selected_hole_counts(self, color_map, mc_lower_result, mc_upper_result):
         selected_hole_option_map = dict()

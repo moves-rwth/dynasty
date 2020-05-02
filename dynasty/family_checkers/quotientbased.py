@@ -159,8 +159,6 @@ class LiftingChecker(QuotientBasedFamilyChecker):
         TODO debug again after recent refactoring. 
         :return:
         """
-
-
         self.jani_quotient_builder = JaniQuotientBuilder(self.sketch, self.holes)
 
         self._open_constants = self.holes
@@ -349,8 +347,6 @@ class LiftingChecker(QuotientBasedFamilyChecker):
                 hole_options = hole_options_next_round
                 hole_options_next_round = []
         return options_above, options_below
-
-
 
     def _split_hole_options(self, hole_options, oracle):
 
