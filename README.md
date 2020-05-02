@@ -46,7 +46,7 @@ python -m pytest dynasty_tests
 
 ### Docker container
 
-We automatically provide a [docker container](https://hub.docker.com/repository/docker/movesrwth/dynasty) with everything pre-installed.
+We automatically provide a [docker container](https://hub.docker.com/r/movesrwth/dynasty) with everything pre-installed.
 
 
 ## Usage examples
