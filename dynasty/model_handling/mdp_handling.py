@@ -20,6 +20,11 @@ def display_model(model):
     G.draw(location)
     subprocess.call(["open", location])
 
+class SymbolicMCResult:
+    def __init__(self, absolute_min, absolute_max):
+        self.absolute_min = absolute_min
+        self.absolute_max = absolute_max
+
 
 class ExplicitMCResult:
     def __init__(self, result, alt_result, maximising=True, prime_result_action_values = None, second_result_action_values = None, absolute_min = None, absolute_max = None):
@@ -240,10 +245,13 @@ class ModelHandling:
         return result
 
     def mc_model_hybrid(self, index=0):
-        stormpy.check_model_hybrid(self._submodel, self._formulae[index])
+        internal_res = stormpy.check_model_hybrid(self._submodel, self._formulae[index])
+        #TODO do something with this result
 
     def mc_model_symbolic(self, index=0):
-        stormpy.check_model_dd(self._submodel, self._formulae[index])
+        internal_res = stormpy.check_model_dd(self._submodel, self._formulae[index])
+        internal_res.filter(stormpy.create_filter_initial_states_symbolic(self._submodel))
+        return SymbolicMCResult(internal_res.min, internal_res.max)
 
     def mc_model(self, index=0, compute_action_values=False, check_dir_2 = always_true):
         """

@@ -13,8 +13,8 @@ from dynasty.annotated_property import AnnotatedProperty
 from dynasty.family_checkers.familychecker import FamilyChecker, HoleOptions
 
 class QuotientBasedFamilyChecker(FamilyChecker):
-    def __init__(self, *args):
-        super().__init__(*args)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.mc_formulae = None
         self.mc_formulae_alt = None
         self.jani_quotient_builder = None
@@ -79,8 +79,8 @@ class LiftingChecker(QuotientBasedFamilyChecker):
 
     TODO use different splitting heuristics for different tasks
     """
-    def __init__(self,*args):
-        super().__init__(*args)
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
         self.use_oracle = True
 
     def run_feasibility(self):
@@ -421,6 +421,8 @@ class AllInOneChecker(QuotientBasedFamilyChecker):
     """
 
     """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def run_feasibility(self):
         if self.input_has_optimality_property():

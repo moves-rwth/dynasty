@@ -410,9 +410,9 @@ class JaniQuotientContainer:
         if self._mdp_handling.submodel_is_dtmc():
             self.dtmcs_checked += 1
         if engine == engine.Dd:
-            self._mdp_handling.mc_model_symbolic(index)
+            self._latest_result = self._mdp_handling.mc_model_symbolic(index)
         elif engine == engine.Hybrid:
-            self._mdp_handling.mc_model_hybrid(index)
+            self._latest_result = self._mdp_handling.mc_model_hybrid(index)
         else:
             assert engine == Engine.Sparse
             self._latest_result = self._mdp_handling.mc_model(index, compute_action_values=False, check_dir_2=is_inside_function(threshold) if threshold is not None else always_true)
