@@ -9,6 +9,8 @@ from dynasty.family_checkers.familychecker import FamilyCheckMethod
 from dynasty.family_checkers.quotientbased import LiftingChecker, AllInOneChecker,OneByOneChecker,ConsistentSchedChecker,SmtChecker
 from dynasty.family_checkers.cegis import Synthesiser
 from dynasty import version
+from dynasty.jani.quotient_container import Engine
+
 
 logger = logging.getLogger(__name__)
 
@@ -53,13 +55,15 @@ def dump_stats_to_file(path, keyword, constants, description, *args):
 @click.option('--restrictions', help="restrictions")
 @click.option("--constants", default="")
 @click.option("--stats", default="stats.out")
+@click.option('--engine', help="What engine to use",type=click.Choice(['dd', 'sparse']), default="sparse")
 @click.option("--print-stats", is_flag=True)
 @click.option('--check-prerequisites', help="should prerequisites be checked", is_flag=True)
 @click.option('--partitioning', help="Run partitioning instead of feasibility", is_flag=True)
 @click.argument("method",  type=click.Choice(['lift', 'cschedenum', 'allinone', 'onebyone', 'smt', 'cegis']))
-def dynasty(project, sketch, allowed, properties, optimality, restrictions, constants, stats, print_stats, check_prerequisites, partitioning, method):
+def dynasty(project, sketch, allowed, properties, optimality, restrictions, constants, stats, engine, print_stats, check_prerequisites, partitioning, method):
     print("This is Dynasty version {}.".format(version()))
     approach = FamilyCheckMethod.from_string(method)
+    selected_engine = Engine.Sparse if engine == "sparse" else Engine.Dd
     assert approach is not None
     backward_cuts = 1 # Only used for cegis.
 
@@ -67,10 +71,13 @@ def dynasty(project, sketch, allowed, properties, optimality, restrictions, cons
         if partitioning:
             raise RuntimeError("It does not make sense to combine partitioning and optimality")
 
+    if selected_engine == Engine.Dd and approach != FamilyCheckMethod.AllInOne:
+        raise RuntimeError("DD engine is currently only supported with the all-in-one approach")
+
     if approach == FamilyCheckMethod.Lifting:
         algorithm = LiftingChecker()
     elif approach == FamilyCheckMethod.AllInOne:
-        algorithm = AllInOneChecker()
+        algorithm = AllInOneChecker(engine=selected_engine)
     elif approach == FamilyCheckMethod.DtmcIteration:
         algorithm = OneByOneChecker()
     elif approach == FamilyCheckMethod.SchedulerIteration:
