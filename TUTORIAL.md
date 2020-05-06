@@ -56,12 +56,13 @@ P>= 0.16 [F s=7 & d=6]
 
 ### Running the example
 
-The program can be run by specifying the project directory and necessary files in the command line or using the configuration file. The introduced example has multiple properties and thus we can only use evolutionary search (ea) or CEGIS (cegis) that support this.
-**All the options specified on command line:**
+The program can be run by specifying the project directory and necessary files in the command line or using the configuration file. The introduced example has multiple properties and thus we can only use evolutionary search (ea) or CEGIS (cegis), which support this.
+
+**All options specified on command line:**
 ```
 python3 dynasty.py  --project examples/die/  --sketch die.templ  --allowed die.allowed  --properties die.properties ea
 ```
-**All the options specified in [configuration file](https://github.com/moves-rwth/dynasty/tree/master/examples/die/die.cfg):**
+**All options specified in [configuration file](https://github.com/moves-rwth/dynasty/tree/master/examples/die/die.cfg):**
 ```
 python3 dynasty.py --config examples/die/die.cfg
 ```
