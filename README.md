@@ -16,7 +16,7 @@ And many more details can be found in:
 
 ## Overview
 We first give some installation guideline, and then go into some usage examples.
-A [getting started guide](TODO) that walks users through some options is provided seperately.
+A [getting started guide](https://github.com/moves-rwth/dynasty/blob/master/TUTORIAL.md) that walks users through some options is provided seperately.
 
 ## Installation
 
