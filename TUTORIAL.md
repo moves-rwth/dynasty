@@ -1,8 +1,8 @@
-**TV: There should be some introduction here, which says what the document is about. I was starring at it, not knowing what to expect.**
+**TV: There should be some introduction here, which says what the document is about. I was starring at it, not knowing what to expect. If you assume that the reader should read something before, say this here and add links to the documents. **
 
 # Feasibility Analysis
 
-Given a sketch, i.e., a program with holes, and a specification of properties the final program should have, the goal of feasibility analysis is to find an instantiation of the holes such that the final program satisfies the properties. All methods presented here except the evolutionary algorithm are complete, i.e., if the there is no feasible instantiation, the algorithms eventually report so.
+Given a sketch, i.e., a probabilistic program with holes, and a specification of properties that the final program should have, the goal of feasibility analysis is to find an instantiation of the holes such that the final program satisfies the properties. All methods presented here except the evolutionary algorithm are complete, i.e., if the there is no feasible instantiation, the algorithms eventually report so.
 
 ## Emulation of a six-sided die
 
