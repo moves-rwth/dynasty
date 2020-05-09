@@ -7,7 +7,6 @@ import dynasty.jani
 from dynasty.jani.jani_quotient_builder import *
 from dynasty.jani.quotient_container import ThresholdSynthesisResult as ThresholdSynthesisResult
 from dynasty.jani.quotient_container import Engine as Engine
-from dynasty.smt.model_adapter import *
 from dynasty.annotated_property import AnnotatedProperty
 
 from dynasty.family_checkers.familychecker import FamilyChecker, HoleOptions
@@ -22,7 +21,6 @@ class QuotientBasedFamilyChecker(FamilyChecker):
         self._accept_if_above = []
 
     def initialise(self):
-        print(self._optimality_setting)
         self.mc_formulae = []
         self.mc_formulae_alt = []
         for p in self.properties:
@@ -152,11 +150,9 @@ class LiftingChecker(QuotientBasedFamilyChecker):
 
         return False, None, None
 
-                # print("[" + ",".join([str(x) for x in hole_options]) + "]")
-
     def _run_optimal_feasibility(self, nr_options_above=None):
         """
-        TODO debug again after recent refactoring. 
+
         :return:
         """
         self.jani_quotient_builder = JaniQuotientBuilder(self.sketch, self.holes)
@@ -481,7 +477,6 @@ class OneByOneChecker(QuotientBasedFamilyChecker):
             logger.info("Iteration: {} / {}".format(iteration, total_nr_options))
             constants = [jani_program.get_constant(c).expression_variable for c in self.hole_options.keys()]
             substitution = dict(zip(constants, constant_assignment))
-            # print(substitution)
             instance = jani_program.define_constants(substitution)
             mh = ModelHandling()
 
@@ -591,37 +586,3 @@ class ConsistentSchedChecker(QuotientBasedFamilyChecker):
         else:
             return above, below
 
-
-class SmtChecker(QuotientBasedFamilyChecker):
-    def run_feasibility(self):
-        self.jani_quotient_builder = JaniQuotientBuilder(self.sketch, self.holes)
-        threshold_synthesis = True
-
-        jani_program = self.sketch
-
-        self._open_constants = self.holes
-        properties = self.properties
-        oracle = self.jani_quotient_builder.construct(self.hole_options, set(), set())
-        oracle.prepare(self.mc_formulae, self.mc_formulae_alt)
-
-        solver = SmtConsistentSchedulerSolver()
-        model = oracle._mdp_handling.full_mdp
-        formula = self.mc_formulae[0]
-        assert type(formula) in [stormpy.logic.ProbabilityOperator, stormpy.RewardOperator]
-        path_formula = formula.subformula
-        if type(path_formula) == stormpy.logic.EventuallyFormula:
-            phi_formula = stormpy.logic.BooleanLiteralFormula(True)
-            psi_formula = path_formula.subformula
-        elif type(path_formula) == stormpy.logic.UntilFormula:
-            phi_formula = path_formula.left_subformula
-            psi_formula = path_formula.right_subformula
-        else:
-            raise ValueError("Property type not supported")
-        phi_result = stormpy.model_checking(model, phi_formula)
-        phi_states = phi_result.get_truth_values()
-        psi_result = stormpy.model_checking(model, psi_formula)
-        psi_states = psi_result.get_truth_values()
-        solver.initialize(oracle._mdp_handling.full_mdp, oracle.get_full_colors(), self.hole_options,
-                          self.mc_formulae[0].reward_name if self.mc_formulae[0].is_reward_operator else None,
-                          phi_states, psi_states, self.properties[0].raw_formula.threshold,
-                          self.properties[0].raw_formula.comparison_type)

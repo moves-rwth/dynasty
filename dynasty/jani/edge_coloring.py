@@ -4,7 +4,6 @@ class EdgeColoring:
     def __init__(self, hole_options):
         self.hole_options = hole_options
 
-        print(self.hole_options)
         self.coloring = dict()
         self.reverse_coloring = dict()
 
@@ -70,9 +69,7 @@ class EdgeColoring:
 
 
     def get_hole_assignments(self, lists_colors):
-        #print(self.reverse_coloring)
         result = dict()
-        print(lists_colors)
         for index, colors in enumerate(lists_colors):
             for color in colors:
                 if color == 0:
@@ -85,9 +82,6 @@ class EdgeColoring:
                         newlist.append(index)
                         old[assignment] = newlist
                         result[hole] = old
-                print(result)
-        if len(result) > 0:
-            print("{} results in {}".format(lists_colors, result))
         return result
 
 
