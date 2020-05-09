@@ -1,4 +1,4 @@
-**TV: There should be some introduction here, which says what the document is about. I was starring at it, not knowing what to expect. If you assume that the reader should read something before, say this here and add links to the documents.**
+This file provides a more detailed introduction to using Dynasty. Before reading it, the very first overview of the tool can be obtained in [README](https://github.com/moves-rwth/dynasty/blob/master/README.md)
 
 # Feasibility Analysis
 
