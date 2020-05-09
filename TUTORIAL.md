@@ -42,11 +42,11 @@ module die
 endmodule
 ```
 
-Notice that one has to be careful about potentially ill-formed sketches. The checks performed are not necessarily sufficient.
+Notice that one has to be careful about potentially ill-formed sketches. The checks currently performed by the tool are not necessarily sufficient.
 
-#### Options for holes (*.allowed)
+#### Options for Holes (*.allowed)
 
-In this file we define final sets of possible values for each hole (undefined constant in the template). Each line contains a hole name followed by assignable values separated by semicolon.
+Possible values for each hole (i.e., an undefined constant in the template) are defined in a file with the "allowed" suffix. Each line contains the name of a hole followed by values that the hole can be instantiated with, separated by semicolons.
 ```
 x3;0;1;2;3;4;5;6;7
 x4;0;1;2;3;4;5;6;7
@@ -55,7 +55,7 @@ x6;0;1;2;3;4;5;6;7
 ```
 #### Properties (*.properties)
 
-This file contains specification of reachability properties in this case and generally also of expected rewards. The properties below ensure fairness of the six-sided die emulated by the algorithm.
+The properties file contains a specification of the properties that the target program should have. In this case, reachability properties specifying the probabilities with which certain states should be reached are provided. In general, expected rewards can also be provided. The below property specifications ensure fairness of the six-sided die emulated by the algorithm.
 ```
 P>= 0.16 [F s=7 & d=1]  
 P>= 0.16 [F s=7 & d=2]  
@@ -65,31 +65,31 @@ P>= 0.16 [F s=7 & d=5]
 P>= 0.16 [F s=7 & d=6]
 ```
 
-### Running the example
+### Running the Example
 
-The program can be run by specifying the project directory and necessary files in the command line or using the configuration file. The introduced example has multiple properties and thus we can only use evolutionary search (ea) or CEGIS (cegis), which support this.
+The tool can be run by specifying the project directory and all necessary files at the command line or through the configuration file. The introduced example has multiple properties and thus we can only use the evolutionary search (ea) or CEGIS (cegis) methods, which support multiple properties.
 
-**All options specified on command line:**
+**All options specified at the command line:**
 ```
 python3 dynasty.py  --project examples/die/  --sketch die.templ  --allowed die.allowed  --properties die.properties ea
 ```
-**All options specified in [configuration file](https://github.com/moves-rwth/dynasty/tree/master/examples/die/die.cfg):**
+**All options specified in the [configuration file](https://github.com/moves-rwth/dynasty/tree/master/examples/die/die.cfg):**
 ```
 python3 dynasty.py --config examples/die/die.cfg
 ```
-**Command line options override the specification in configuration file:**
+**Command line options override the specification given in the configuration file:**
 ```
 python3 dynasty.py --config examples/die/die.cfg cegis
 ```
-#### The result
-At the end of the output can be found the analysis result
+#### The Result
+At the end of the output of the tool, one can be find the analysis result
 ```
 Satisfiable!
 using x3: 6, x4: 3, x5: 4, x6: 5
 ```
-that contains the assignment to each hole and thus providing an instance of the program that correctly emulates fair six-sided die with fair coin (in case you get different result, there are four possible solutions of this particular example :alien:).
+that contains the assignment of a value to each hole and thus provides an instance of the program that correctly emulates a fair six-sided die with a fair coin (in case you get a different result, there are four possible solutions of this particular example :alien:).
 
-If we tweak a bit the probability for instance *P>= ~~0.16~~ [F s=7 & d=6]* to *P>= 0.20 [F s=7 & d=6]*, the analysis result is
+If we tweak a bit the probability, for instance, by changing *P>= ~~0.16~~ [F s=7 & d=6]* to *P>= 0.20 [F s=7 & d=6]*, the analysis result is
 ```
 Unsatisfiable!
 ```
