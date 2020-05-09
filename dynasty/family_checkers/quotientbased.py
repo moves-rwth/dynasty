@@ -21,7 +21,6 @@ class QuotientBasedFamilyChecker(FamilyChecker):
         self._accept_if_above = []
 
     def initialise(self):
-        print(self._optimality_setting)
         self.mc_formulae = []
         self.mc_formulae_alt = []
         for p in self.properties:
@@ -151,11 +150,9 @@ class LiftingChecker(QuotientBasedFamilyChecker):
 
         return False, None, None
 
-                # print("[" + ",".join([str(x) for x in hole_options]) + "]")
-
     def _run_optimal_feasibility(self, nr_options_above=None):
         """
-        TODO debug again after recent refactoring. 
+
         :return:
         """
         self.jani_quotient_builder = JaniQuotientBuilder(self.sketch, self.holes)
@@ -480,7 +477,6 @@ class OneByOneChecker(QuotientBasedFamilyChecker):
             logger.info("Iteration: {} / {}".format(iteration, total_nr_options))
             constants = [jani_program.get_constant(c).expression_variable for c in self.hole_options.keys()]
             substitution = dict(zip(constants, constant_assignment))
-            # print(substitution)
             instance = jani_program.define_constants(substitution)
             mh = ModelHandling()
 
