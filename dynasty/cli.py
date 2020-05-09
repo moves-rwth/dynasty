@@ -90,6 +90,10 @@ def dynasty(project, sketch, allowed, properties, optimality, restrictions, cons
     else:
         assert None
 
+
+    if not os.path.isdir(project):
+        raise ValueError(f"The project folder {project} is not a directory")
+
     sketch_path = os.path.join(project, sketch)
     allowed_path = os.path.join(project, allowed)
     if restrictions:
