@@ -119,18 +119,20 @@ python dynasty.py --project examples/grid/ --sketch 4x4grid_sl.templ --propertie
 
 ### Optimal Feasibility Analysis
 Optimal feasibility analysis differs from feasibility analysis in that an optimality criterion is added.
-An optimality criterion consists of a property, a direction, and a relative tolerance, written in a file:
+An optimality criterion consists of a property, a direction, and a relative tolerance, described in a file containing, e.g., the following:
 
 ```
 P=? [ F (o=2 & c<=5) ]
 max
 relative 0.0
 ```
-This describes that the probability described by the first line should be maximized among all feasible options.
+The above optimality criterion says that the probability described by the first line should be maximized among all feasible options.
 By increasing the relative tolerance, we relax this hard constraint and only require that the 
 obtained instantiation is at least (1-tolerance)* "global maximum."
 
-By passing such a criterion, the tool automatically switches to optimal feasibility.
+When given such a criterion, the tool automatically switches to solving optimal feasibility.
+
+Below, we provide examples how one can use the different supported methods for optimal feasability analysis.
 
 #### CEGIS
 
