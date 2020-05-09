@@ -127,8 +127,9 @@ max
 relative 0.0
 ```
 The above optimality criterion says that the probability described by the first line should be maximized among all feasible options.
-By increasing the relative tolerance, we relax this hard constraint and only require that the 
-obtained instantiation is at least (1-tolerance)* "global maximum."
+By increasing the relative tolerance given on the last line, the hard optimality constraint can be relaxed to requiring that the obtained instantiation is at least (1-tolerance)* "global maximum."
+
+**TV: The last sentence above seems somehow unfinished -- basically, after substituting some values, one gets: the instantiation is at least 0.5. What does it mean to be 0.5??? A few words should be added**
 
 When given such a criterion, the tool automatically switches to solving optimal feasibility.
 
