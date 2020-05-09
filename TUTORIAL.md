@@ -1,4 +1,4 @@
->>> TV: There should be some introduction here, which says what the document is about. I was starring at it, not knowing what to expect. 
+TV: There should be some introduction here, which says what the document is about. I was starring at it, not knowing what to expect. 
 
 # Feasibility analysis
 
