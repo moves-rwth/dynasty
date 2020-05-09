@@ -18,7 +18,7 @@ And many more details can be found in:
 We first give some installation guideline and then go into some usage examples.
 A [getting started guide](https://github.com/moves-rwth/dynasty/blob/master/TUTORIAL.md) that walks users through some options is provided seperately.
 
-**TV: I have not noticed that the "getting started guide" is the tutorial. Moreover, it seems to me that the tutorial is hardly readable without first going through the README. So, I suggest to (1) rename the "getting started guide" to a tutorial and (2) characterize better the relation of these two documents. Can one say that the tutorial provides a more detailed discussion of using various methods and options provided by the tool, but the reader is advised to first skim through the readme and them go through the tutorial?**
+**TV: I have not noticed that the "getting started guide" is the tutorial. Moreover, it seems to me that the tutorial is hardly readable without first going through the README. So, I suggest to (1) rename the "getting started guide" to a tutorial and (2) characterize better the relation of these two documents. Can one say that the tutorial provides a more detailed discussion of using various methods and options provided by the tool, but the reader is advised to first skim through the readme and then go through the tutorial?**
 
 ## Installation
 
