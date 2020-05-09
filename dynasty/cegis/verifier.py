@@ -190,7 +190,6 @@ class Verifier:
             if p.prerequisite_property:
                 logger.debug("Prerequisite checking..: {}".format(p.prerequisite_property))
                 start_mc = time.time()
-                #print(stormpy.model_checking(model, p.prerequisite_property))
                 mc_result = stormpy.model_checking(model, p.prerequisite_property).at(model.initial_states[0])
                 logger.debug("MC result for prerequisite: {}".format(mc_result))
                 logger.debug("model states: {}, transitions: {}".format(model.nr_states, model.nr_transitions))
@@ -273,6 +272,7 @@ class Verifier:
                     for d in e.destinations:
                         for assignment in d.assignments:
                             vars.update(assignment.expression.get_variables())
+                        vars.update(d.probability.get_variables())
 
             var_names = set([var.name for var in vars])
             constants = set()
