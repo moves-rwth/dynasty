@@ -5,28 +5,28 @@ Dynasty
 Dynasty contains algorithms for synthesis in probabilistic program sketches.
 
 Some of the algorithms have been published:
-- [1] Milan Ceska, Christian Hensel, Sebastian Junges, Joost-Pieter Katoen: Counterexample-Driven Synthesis for Probabilistic Program Sketches, FM 2019
-- [2] Milan Ceska, Nils Jansen, Sebastian Junges, Joost-Pieter Katoen: Shepherding Hordes of Markov chains, TACAS 2019
+- [1] Milan Ceska, Christian Hensel, Sebastian Junges, Joost-Pieter Katoen: Counterexample-Driven Synthesis for Probabilistic Program Sketches, FM 2019.
+- [2] Milan Ceska, Nils Jansen, Sebastian Junges, Joost-Pieter Katoen: Shepherding Hordes of Markov chains, TACAS 2019.
 
 An overview is given in:
-- [3] 	Milan Ceska, Christian Dehnert, Nils Jansen, Sebastian Junges, Joost-Pieter Katoen: Model Repair Revamped: On the Automated Synthesis of Markov Chains
+- [3] 	Milan Ceska, Christian Dehnert, Nils Jansen, Sebastian Junges, Joost-Pieter Katoen: Model Repair Revamped: On the Automated Synthesis of Markov Chains.
 
 And many more details can be found in:
-- [4] Sebastian Junges: Parameter Synthesis in Markov Models, PhD Thesis, RWTH Aachen University, 2020
+- [4] Sebastian Junges: Parameter Synthesis in Markov Models, PhD Thesis, RWTH Aachen University, 2020.
 
 ## Overview
-We first give some installation guideline, and then go into some usage examples.
+We first give some installation guideline and then go into some usage examples.
 A [getting started guide](https://github.com/moves-rwth/dynasty/blob/master/TUTORIAL.md) that walks users through some options is provided seperately.
 
 ## Installation
 
 ### Dependencies
 
-- Python bindings for [z3](https://github.com/Z3Prover/z3)
+- Python bindings for [z3](https://github.com/Z3Prover/z3).
 - The model checker storm and the python bindings for storm. Please check the [installation hints](https://moves-rwth.github.io/stormpy/installation.html#installation-steps).
-- The python packages
-  * click
-  * pysmt
+- The python packages:
+  * click,
+  * pysmt.
 
 ### Install
 
@@ -37,7 +37,7 @@ python setup.py install
 ```
 
 This will automatically install dynasty and its python dependencies. Notice that you have to install storm yourself (see above).
-If you are planning on making changes to the code, we suggest to use `python setup.py develop`
+If you are planning to make changes to the code, we suggest to use `python setup.py develop`
 
 To run the tests, run:
 ```
@@ -51,28 +51,28 @@ We automatically provide a [docker container](https://hub.docker.com/r/movesrwth
 
 ## Usage examples
 
-We support three types of problems
- - Feasibility Analysis (and its dual, validity analysis)
- - Optimal Feasibility Analysis
- - Partitioning (or Threshold analysis)
+We support solution of three types of problems:
+ - Feasibility Analysis (and its dual, Validity Analysis),
+ - Optimal Feasibility Analysis,
+ - Partitioning (or Threshold Analysis).
  
-We support five methods:
- - CEGIS [1]
- - Lifting [2]
- - (Consistent) Scheduler enumeration [2]
- - SmartSearch [to be published]
- - All-in-one [Chroszon et al, Formal Asp Comput]
+We support five methods of solving the above problems:
+ - CEGIS [1],
+ - Lifting [2],
+ - (Consistent) Scheduler enumeration [2],
+ - SmartSearch [to be published],
+ - All-in-one [Chroszon et al, Formal Asp Comput].
 
-As input, we take projects. Below, we first explain what a project is, and then discuss the different analysis types and how to invoke the different methods for these problems. 
+As input, we take projects. Below, we first explain what a project is and then discuss the different analysis types and how to invoke the different methods for these problems. 
 For details about the methods, we refer to the publications mentioned above. 
 
-### Input: Project folders
+### Input: Project Folders
 
 A project is a folder containing the various inputs for the synthesis. 
 
 We require:
 - A .templ file, which is a PRISM file with various open integer constants (holes).
-- A .allowed file, which lists for each hole the possible values. The instantiations are the Cartesean product of these files.
+- A .allowed file, which describes sets of possible values for each hole. The instantiations are the Cartesian product of such sets of values.
 - A .properties file, which contains a list of PCTL formulae.
 
 Optionally, a project may contain: 
@@ -85,10 +85,10 @@ For more information, look at the [examples](examples/).
 
 ### Feasibility Analysis
 
-This problem tries to find an instantiation of the holes such that the induced program satisfies the properties.
-All methods provided here are complete, e.g., if the there is no feasible instantiation, the algorithms eventually report so.
+The goal of feasibility analysis is to find an instantiation of the holes such that the induced program satisfies the properties.
+All methods we provide for solving this problem are complete, i.e., the algorithms either report a feasible solution, or if there is no feasible instantiation, the algorithms eventually report so.
 
-Notice that one has to be careful about potentially ill-formed sketches. The checks performed are not necessarily sufficient.
+Notice that one has to be careful about potentially ill-formed sketches. The checks we perform are not necessarily sufficient.
 
 #### CEGIS
 ```
