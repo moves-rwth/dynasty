@@ -1,4 +1,4 @@
-This file provides a more detailed introduction to using Dynasty. A shorter overview of the tool, including instructions how to install it, can be obtained in [README](https://github.com/moves-rwth/dynasty/blob/master/README.md), which we advise the reader to read or at least quickly skim through first. 
+This file provides a more detailed introduction to using Dynasty. In particular, multiple experiments with the tool, including the inputs and expected outputs, are discussed. A shorter overview of the tool, including instructions how to install it, can be obtained in [README](https://github.com/moves-rwth/dynasty/blob/master/README.md), which we advise the reader to read or at least quickly skim through first. 
 
 # Feasibility Analysis
 
