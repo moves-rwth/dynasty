@@ -97,11 +97,17 @@ as there is no existing instance of the sketch that would satisfy the objectives
 
 ## Grid (POMDP)
 
-This example models a 4x4 grid with a goal state where we want to synthesize finite state controller that will reach the goal state in the least expected time.
+This example models a 4x4 grid and we want to synthesize a finite state controller that will reach a selected goal state in the least expected time.
 
-### Running the example
+**TV: the above description is not understandable for anybody who does not yet know the example. What is the goal state? One of the fields? What is the controller doing?**
 
-All undefined constants have to be specified either as holes in _*.allowed_ file or directly using command line option --constants. The latter is very common, since the constants can be also used as thresholds in property specification (*.properties). Constant CMAX denotes the upper bound for the number of steps to the target and the rest are thresholds used in the property files. We can run this example with cegis, cegar(lift) and evolutionary algorithm (TODO: other types of synthesis alg.).
+**TV: There will not be a description of the sketch here? If not, I would at least refer to the file with it (ideally through a clickable link) and explain what holes are there, etc. **
+
+### Running the Example
+
+**TV: The below contains information that (1) does not fit the paragraph on "Running the Example" (it should be given above, ideally following a similar structure of the description as for the die) and (2) does not link at all with the die (one should somehow refer to the die example, do not repeat what has been said blindly (perhaps say: above, we have seen a specification of the possible values in the allowed file, but they can also be given ..., which is useful when ...).**
+
+All undefined constants have to be specified either as holes in the _*.allowed_ file or directly using the command line option --constants. The latter is useful when the constants are also used as thresholds in the property specification (*.properties). The constant CMAX denotes the upper bound for the number of steps to the target, and the rest are thresholds used in the property files. We can run this example with cegis, cegar(lift), and the evolutionary algorithm (TODO: other types of synthesis alg.).
 
 **Synthetize the controler that will reach the target within 10 steps with probability equal or higher than 0.77:**
 ```
