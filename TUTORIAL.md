@@ -2,7 +2,7 @@
 
 # Feasibility Analysis
 
-Given a sketch, i.e., a probabilistic program with holes, and a specification of properties that the complete program should have, the goal of feasibility analysis is to find an instantiation of the holes such that the complete program satisfies the desired properties. All methods presented here except the evolutionary algorithm are complete, i.e., if the there is no feasible instantiation, the algorithms eventually report so.
+Given a sketch, i.e., a probabilistic program with holes, and a specification of properties that the complete program should have, the goal of feasibility analysis is to find an instantiation of the holes such that the induced program satisfies the desired properties. All methods presented here except the evolutionary algorithm are complete, i.e., if the there is no feasible instantiation, the algorithms eventually report so.
 
 ## Emulation of a six-sided die
 
