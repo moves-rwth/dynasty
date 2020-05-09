@@ -6,15 +6,17 @@ Given a sketch, i.e., a probabilistic program with holes, and a specification of
 
 All methods implemented in the tool, except the evolutionary algorithm, are complete, i.e., they either provide a solution, or if the there is no feasible instantiation, the algorithms eventually report so.
 
-## Emulation of a six-sided die
+Below, we discuss experiments with feasibility analysis in Dynasty on two particular case studies. 
 
-Let us consider an emulation of a fair six-sided die with a fair coin. This of course can be achieved when the coin is tossed repeatedly until the certain final state is reached. We encode the problem using our PRISM-based sketching language into three files, which form compulsory input for the tool and are introduced below.
+## Emulation of a Six-Sided Die
+
+Let us consider the problem of emulating a fair six-sided die with a fair coin. This problem can of course be solved when the coin is tossed repeatedly until a certain final state is reached. We encode the problem using our PRISM-based sketching language into three files, which form the compulsory input for the tool and are introduced below.
 
 TODO: picture of the algorithm
 
-#### Template file (*.templ)
+#### Template File (*.templ)
 
-Template or also sketch is the main part of a problem specification. It encodes the whole logic of an algorithm and contains holes to be filled with suitable option values. Below the variable **s** represents a state of the emulation process and **d** the generated number on the die. Starting in state 0 the coin is tossed with 50% chance to pick one of the states 1 or 2. For either of these states the next step is going to be synthesized as represented by undefined constants x3-6. As soon as state 7 is reached the emulation ends and when this happens the value of variable **d** is set with the generated number on die.
+A template, also called a sketch, is the main part of a problem specification. It encodes the whole logic of an algorithm and contains holes to be filled with suitable optional values. Below, the variable **s** represents a state of the emulation process and **d** the generated number on the die. Starting in state 0, the coin is tossed with a 50 % chance to pick one of the states 1 or 2. For either of these states, the next state has to be synthesized which the tool is instructed to do through the undefined constants x3-6. As soon as state 7 is reached, the emulation ends, and when this happens, the value of the variable **d** is contains the generated number on the die.
 ```
 dtmc
 
