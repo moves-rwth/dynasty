@@ -164,7 +164,7 @@ Currently, there is no working implementation for this type of analysis.
 
 #### Lifting
 
-*TODO: Description*
+**TODO: Description**
 
 ```bash
 python --project examples/grid/ --sketch 4x4grid_sl.templ --constants CMAX=11,T_EXP=10.0,T_SLOW=10.0,T_FAST=0.9 --allowed 4x4grid_sl.allowed --restrictions 4x4grid_sl.restrictions  --properties single.properties --partitioning lift
@@ -172,11 +172,11 @@ python --project examples/grid/ --sketch 4x4grid_sl.templ --constants CMAX=11,T_
 
 #### Scheduler enumeration
 
-*TODO: Descritption*
+**TODO: Descritption**
 
 #### All other approaches
 
-*TODO: Description*
+**TODO: Description**
 
 ### Further Options
 
@@ -187,3 +187,5 @@ One may omit the check prerequisites if the sketch already ensures that all rewa
 Print statistics at the end. Helpful to understand the algorithm performance but clutters the output. 
 
 ## The sources
+
+**TV: What should be here???**
