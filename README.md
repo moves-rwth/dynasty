@@ -90,6 +90,8 @@ All methods we provide for solving this problem are complete, i.e., the algorith
 
 Notice that one has to be careful about potentially ill-formed sketches. The checks we perform are not necessarily sufficient.
 
+Below, we provide examples how one can use the different supported methods for feasability analysis.
+
 #### CEGIS
 ```
 python dynasty.py --project examples/virus/ --sketch virus.templ --constants CMAX=0,T=18.0 --allowed virus.allowed --restrictions virus.restrictions  --properties virus.properties
@@ -113,10 +115,10 @@ python dynasty.py --project examples/grid/ --sketch 4x4grid_sl.templ --propertie
 
 #### All other approaches
 
-TODO
+**TODO**
 
 ### Optimal Feasibility Analysis
-Optimal feasibility analysis is enabled by adding an optimality criterion.
+Optimal feasibility analysis differs from feasibility analysis in that an optimality criterion is added.
 An optimality criterion consists of a property, a direction, and a relative tolerance, written in a file:
 
 ```
