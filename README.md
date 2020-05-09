@@ -90,6 +90,8 @@ For more information, look at the [examples](examples/).
 The goal of feasibility analysis is to find an instantiation of the holes such that the induced program satisfies the properties.
 All methods we provide for solving this problem are complete, i.e., the algorithms either report a feasible solution, or if there is no feasible instantiation, the algorithms eventually report so.
 
+**TV:The tutorial says something different! Namely: All methods presented here except the evolutionary algorithm are complete, i.e., if the there is no feasible instantiation, the algorithms eventually report so. Should be made uniform.**
+
 Notice that one has to be careful about potentially ill-formed sketches. The checks we perform are not necessarily sufficient.
 
 Below, we provide examples of using the different supported methods for feasability analysis on the provided case studies.
