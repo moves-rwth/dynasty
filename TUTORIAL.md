@@ -109,23 +109,23 @@ This example models a 4x4 grid and we want to synthesize a finite state controll
 
 All undefined constants have to be specified either as holes in the _*.allowed_ file or directly using the command line option --constants. The latter is useful when the constants are also used as thresholds in the property specification (*.properties). The constant CMAX denotes the upper bound for the number of steps to the target, and the rest are thresholds used in the property files. We can run this example with cegis, cegar(lift), and the evolutionary algorithm (TODO: other types of synthesis alg.).
 
-**Synthetize the controler that will reach the target within 10 steps with probability equal or higher than 0.77:**
+**Synthetize a controler that will reach the target within 10 steps with probability equal or higher than 0.77:**
 ```
 python3 dynasty.py --config examples/grid/4x4grid_sl.cfg  --constants CMAX=11,T_EXP=0.0,T_SLOW=0.0,T_FAST=0.77 cegis
 ```
 
-In contrast with cegis and cegar, evolutionary algorithm is incomplete and it uses timeout value of 30 seconds as default, which can be changed by option '--timeout'.
+In contrast with CEGIS and CEGAR, the evolutionary algorithm is incomplete and uses a timeout value of 30 seconds by default, which can be changed by the option '--timeout'.
 
-**Running the evolution with one second timeout for the synthesis:**
+**Running the evolution with a one second timeout for the synthesis:**
 ```
 python3 dynasty.py --config examples/grid/4x4grid_sl.cfg  --timeout 1  --constants CMAX=11,T_EXP=0.0,T_SLOW=0.0,T_FAST=0.77 ea
 ```
 
-**Synthesize the controller that will reach the target in expected number of steps less than 15.5:**
+**Synthesize a controller that will reach the target in an expected number of steps less than 15.5:**
 ```
 python3 dynasty.py --config examples/grid/4x4grid_sl.cfg  --properties reward.properties --constants CMAX=400,T_EXP=15.5,T_FAST=0.0,T_SLOW=0.0 lift
 ```
-If we check expected rewards, we implicitly have to assume that the probability to reach the target set is one (TODO: cegis article link). This implicit assumption can be made explicit with option '--check-prerequisites':
+If we check the expected rewards, we implicitly have to assume that the probability to reach the target set is one (TODO: cegis article link). **TV: I do not understand this. Ideally, add a clickable link to the specification file (or list its contents here) and discuss it a bit more.** This implicit assumption can be made explicit with the option '--check-prerequisites':
 ```
 python3 dynasty.py --config examples/grid/4x4grid_sl.cfg  --check-prerequisites  --properties reward.properties --constants CMAX=400,T_EXP=15.5,T_FAST=0.0,T_SLOW=0.0 cegis
 ```
@@ -133,13 +133,13 @@ python3 dynasty.py --config examples/grid/4x4grid_sl.cfg  --check-prerequisites 
 
 # Partitioning
 
-This problem is also known as threshold synthesis. It aims to partition the set of instantiations into a set of accepting instantiations, i.e., instantiations that satisfy the property at hand, and rejecting instantiations, i.e., instantiations that do not satisfy the property at hand. Methods cegis and evolutionary search do not support this this type of synthesis.
+The problem of partitioning is also known as the threshold synthesis. It aims to partition the set of instantiations into a set of accepting instantiations, i.e., instantiations that satisfy the property at hand, and rejecting instantiations, i.e., instantiations that do not satisfy the property at hand. The CEGIS method and the evolutionary search do not support this this type of synthesis.
 
-**A usage example of partitioning on grid (POMDP) benchmark mentioned in 'Feasibility' section:**
+**An example of partitioning on the grid (POMDP) benchmark mentioned in the 'Feasibility' section:**
 ```
 python3 dynasty.py --config examples/grid/4x4grid_sl.cfg  --partitioning  --constants CMAX=11,T_EXP=0.0,T_SLOW=0.0,T_FAST=0.77 lift
 ```
-**Result depicts all instances (option combinations) that satisfy the property:**
+**The result depicts all instances (option combinations) that satisfy the property:**
 ```
 Subfamilies above: 
 [HoleOptions{M01: [2],M11: [0],M21: [1],P01: [3],P11: [3],P21: [2]}, HoleOptions{M01: [2],M11: [0],M21: [1],P01: [3],P11: [2],P21: [3]}, HoleOptions{M01: [1],M11: [2],M21: [0],P01: [3],P11: [3],P21: [2]}, HoleOptions{M01: [1],M11: [2],M21: [0],P01: [3],P11: [2],P21: [3]}]
