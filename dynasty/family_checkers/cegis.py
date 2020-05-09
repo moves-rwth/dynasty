@@ -172,15 +172,17 @@ class Synthesiser(FamilyChecker):
             self.solver.add(var >= 0)
             self.solver.add(var < len(v))
 
-        for sym in self.symmetries:
-            for x, y in zip(sym, sym[1:]):
-                self.solver.add(variables[x] < variables[y])
+        if self.symmetries is not None:
+            for sym in self.symmetries:
+                for x, y in zip(sym, sym[1:]):
+                    self.solver.add(variables[x] < variables[y])
 
-        for sym in self.differents:
-            for id, x in enumerate(sym):
-                for y in sym[id + 1:]:
-                    logger.debug("{} != {}".format(x, y))
-                    self.solver.add(variables[x] != variables[y])
+        if self.differents:
+            for sym in self.differents:
+                for id, x in enumerate(sym):
+                    for y in sym[id + 1:]:
+                        logger.debug("{} != {}".format(x, y))
+                        self.solver.add(variables[x] != variables[y])
 
     def _initialise_verifier(self):
         dont_care_set = self._compute_dont_care_set()
