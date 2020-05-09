@@ -97,17 +97,47 @@ as there is no existing instance of the sketch that would satisfy the objectives
 
 ## Grid (POMDP)
 
-This example models a 4x4 grid and we want to synthesize a finite state controller that will reach a selected goal state in the least expected time.
 
-**TV: the above description is not understandable for anybody who does not yet know the example. What is the goal state? One of the fields? What is the controller doing?**
+This example models a 4x4 grid containing sixteen states, where one state represents the target. We want to synthesize a finite state controller that will reach the target from randomly selected position in the least expected time. As depicted in the part of the sketch bellow, the controller has three states (possible values of 'mem' variable) and based on the current state it picks the direction of the next step (north, east, south, west) towards the target. The object of synthesis is the selection of the succeeding state (M01, M11, M21) of the controller and the selection of the direction (PO1, P11, P21). The constant CMAX denotes the upper bound for the number of steps to the target. T_EXP, T_SLOW and T_FAST are thresholds used in the property files. We can run this example with cegis, cegar(lift), and the evolutionary algorithm (TODO: other types of synthesis alg.).
+```
+dtmc
 
-**TV: There will not be a description of the sketch here? If not, I would at least refer to the file with it (ideally through a clickable link) and explain what holes are there, etc. **
+const int M01;
+const int M11;
+const int M21;
+const int P01;
+const int P11;
+const int P21;
+
+const int CMAX;
+const double T_EXP;
+const double T_SLOW;
+const double T_FAST;
+
+module countermodule
+    c : [0..CMAX] init 0;
+    [p] true -> (c'=min(c+1,CMAX));
+endmodule
+
+module strategy 
+    pick : [0..4];
+    mem : [0..2];
+    [p] pick = 0 & mem = 0 & o = 1 -> (mem' = M01) & (pick' = P01);
+    [p] pick = 0 & mem = 1 & o = 1 -> (mem' = M11) & (pick' = P11);
+    [p] pick = 0 & mem = 2 & o = 1 -> (mem' = M21) & (pick' = P21);
+    
+    [done] pick = 0 & o = 2 -> true;
+    
+    [north] pick = 1 -> (pick' = 0);
+    [east] pick = 2 -> (pick' = 0);
+    [south] pick = 3 -> (pick' = 0);
+    [west] pick = 4 -> (pick' = 0);
+endmodule
+```
 
 ### Running the Example
 
-**TV: The below contains information that (1) does not fit the paragraph on "Running the Example" (it should be given above, ideally following a similar structure of the description as for the die) and (2) does not link at all with the die (one should somehow refer to the die example, do not repeat what has been said blindly (perhaps say: above, we have seen a specification of the possible values in the allowed file, but they can also be given ..., which is useful when ...).**
-
-All undefined constants have to be specified either as holes in the _*.allowed_ file or directly using the command line option --constants. The latter is useful when the constants are also used as thresholds in the property specification (*.properties). The constant CMAX denotes the upper bound for the number of steps to the target, and the rest are thresholds used in the property files. We can run this example with cegis, cegar(lift), and the evolutionary algorithm (TODO: other types of synthesis alg.).
+In Die example we have seen a specification of the possible hole values in the _*.allowed_ file, however, the undefined constants can be also specified via command line option --constants. The latter is useful when the constants are also used as thresholds in the property specification (*.properties).
 
 **Synthetize a controler that will reach the target within 10 steps with probability equal or higher than 0.77:**
 ```
@@ -135,11 +165,10 @@ python3 dynasty.py --config examples/grid/4x4grid_sl.cfg  --check-prerequisites 
 
 The problem of partitioning is also known as the threshold synthesis. It aims to partition the set of instantiations into a set of accepting instantiations, i.e., instantiations that satisfy the property at hand, and rejecting instantiations, i.e., instantiations that do not satisfy the property at hand. The CEGIS method and the evolutionary search do not support this this type of synthesis.
 
-**An example of partitioning on the grid (POMDP) benchmark mentioned in the 'Feasibility' section:**
+**Partitioning on the Grid benchmark mentioned in the 'Feasibility' section (used the same option configuration as before):**
 ```
 python3 dynasty.py --config examples/grid/4x4grid_sl.cfg  --partitioning  --constants CMAX=11,T_EXP=0.0,T_SLOW=0.0,T_FAST=0.77 lift
 ```
-**TV: I would expect some explanation of what the input means. From this, I get nothing.**
 
 **The result depicts all instances (option combinations) that satisfy the property:**
 ```
@@ -170,11 +199,12 @@ By passing such a criterion, the tool automatically switches to solving optimal 
 
 ## Dynamic Power Manager (DPM)
 
-**TV: I do not understand the first sentence at all.** DPM refers to strategies that attempt to make power mode changing decisions based on information about their usage pattern available at runtime. The objective is to minimize power consumption while minimizing the effect on performance. The model consists of a Service Requester (SR), a Service Provider (SP), a Service Request Queue (SRQ), and the power manager (PM). The SR models the arrival of requests and the SRQ corresponds to a (finite) queue in which the requests that cannot immediately be served are stored. The SP is the resource which services requests. It can have several states of operation with varying service rates (the time taken to service requests). The PM is a controller that observes the system and issues commands to the SP which correspond instruct it to change its current state.
+The model consists of a Service Requester (SR), a Service Provider (SP), two Service Request Queues (SRQs), and the power manager (PM). The SR models the arrival of requests and the SRQs correspond to a (finite) queues in which the requests that cannot immediately be served are stored. The SP is the resource which services requests. It can have several states of operation with varying service rates (the time taken to service requests). The PM is a controller that observes the system and issues commands to the SP which correspond instruct it to change its current state. Two SRQs vary in their priority (high and low). The fullness of each queue is has four intervals (0-3, 3-5, 5-7, 7-10). This gives in total 16 possible interval combinations. Based on the current combination the PM dynamically issues a command to SP to change its state, hence DPM. The object of synthesis is to choose the commands issued by PM so that the average power consumption of SP is minimized while there are limits on the number of lost requests in both queues. Again, we use undefined constants for the property files - T_PW (minimal average power consumption), T_LH (average number of lost requests in the high-priority queue) and T_LL (average number of lost requests in the low-priority queue).
 
 **TODO: image**
 
-Description above was adopted from the web sites of [PRISM](https://www.prismmodelchecker.org/casestudies/power.php).
 
-**TODO: running example - coming soon**
+### Running the Example
+
+This is again multi-objective example so we can use only the methods evolutionary search (ea) and CEGIS (cegis).
 
