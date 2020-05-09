@@ -90,7 +90,7 @@ All methods we provide for solving this problem are complete, i.e., the algorith
 
 Notice that one has to be careful about potentially ill-formed sketches. The checks we perform are not necessarily sufficient.
 
-Below, we provide examples how one can use the different supported methods for feasability analysis.
+Below, we provide examples of using the different supported methods for feasability analysis on the provided case studies.
 
 #### CEGIS
 ```
@@ -132,7 +132,7 @@ obtained instantiation is at least (1-tolerance)* "global maximum."
 
 When given such a criterion, the tool automatically switches to solving optimal feasibility.
 
-Below, we provide examples how one can use the different supported methods for optimal feasability analysis.
+Below, we provide examples of using the different supported methods for optimal feasability analysis on the provided case studies.
 
 #### CEGIS
 
