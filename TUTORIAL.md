@@ -139,6 +139,8 @@ The problem of partitioning is also known as the threshold synthesis. It aims to
 ```
 python3 dynasty.py --config examples/grid/4x4grid_sl.cfg  --partitioning  --constants CMAX=11,T_EXP=0.0,T_SLOW=0.0,T_FAST=0.77 lift
 ```
+**TV: I would expect some explanation of what the input means. From this, I get nothing.**
+
 **The result depicts all instances (option combinations) that satisfy the property:**
 ```
 Subfamilies above: 
@@ -150,7 +152,7 @@ Notice that '--partitioning' cannot be combined with '--optimality'.
 
 # Optimality
 
-Optimal feasibility analysis is enabled by adding an optimality criterion. An optimality criterion consists of a property, a direction, and a relative tolerance, written in a file:
+The optimal feasibility analysis is enabled by adding an optimality criterion to the input of feasibility analysis. An optimality criterion consists of a property, a direction, and a relative tolerance, written in a file:
 
 ```
 P=? [ F (o=2 & c<=5) ]
@@ -158,17 +160,21 @@ max
 relative 0.0
 ```
 
-This describes that the probability described by the first line should be maximized among all feasible options. By increasing the relative tolerance, we relax this hard constraint and only require that the obtained instantiation is at least (1-tolerance) times global maximum.
+The above specification describes that the probability described by the first line should be maximized among all feasible options. By increasing the relative tolerance, the hard constraint is relaxed and we only require that the obtained instantiation is at least (1-tolerance) times global maximum.
 
-By passing such a criterion, the tool automatically switches to optimal feasibility, except the evolutionary search, where the optimized property is selected from the *.properties file. The order of the property is specified via option '--optimize-one'.
+**TV: As for the above, it is the same as in README -- check what I wrote there about why I do not understand it.**
 
-## Dynamic power manager (DPM)
+By passing such a criterion, the tool automatically switches to solving optimal feasibility, except for the evolutionary search, where the optimized property is selected from the properties file. The order of the property is specified via the option '--optimize-one'.
 
-DPM refers to strategies that attempt to make power mode changing decisions based on the information about their usage pattern available at runtime. The objective is to minimize power consumption, while minimizing the effect on performance. The model consists of a Service Requester (SR), a Service Provider (SP), a Service Request Queue (SRQ), and the power manager (PM). The SR models the arrival of requests and the SRQ corresponds to a (finite) queue in which the requests that cannot immediately be served are stored. The SP is the resource which services requests. It can have several states of operation with varying service rates (the time taken to service requests). The PM is a controller that observes the system and issues commands to the SP which correspond instruct it to change its current state.
+**TV: There is no example of any experiment. Should be provided as above, including a discussion of the output.**
 
-TODO: image
+## Dynamic Power Manager (DPM)
+
+**TV: I do not understand the first sentence at all.** DPM refers to strategies that attempt to make power mode changing decisions based on information about their usage pattern available at runtime. The objective is to minimize power consumption while minimizing the effect on performance. The model consists of a Service Requester (SR), a Service Provider (SP), a Service Request Queue (SRQ), and the power manager (PM). The SR models the arrival of requests and the SRQ corresponds to a (finite) queue in which the requests that cannot immediately be served are stored. The SP is the resource which services requests. It can have several states of operation with varying service rates (the time taken to service requests). The PM is a controller that observes the system and issues commands to the SP which correspond instruct it to change its current state.
+
+**TODO: image**
 
 Description above was adopted from the web sites of [PRISM](https://www.prismmodelchecker.org/casestudies/power.php).
 
-TODO: running example - coming soon
+**TODO: running example - coming soon**
 
