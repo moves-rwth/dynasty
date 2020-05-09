@@ -137,14 +137,14 @@ Below, we provide examples of using the different supported methods for optimal 
 
 #### CEGIS
 
-TODO description
+**TODO description**
 ```bash
 python dynasty.py --project examples/grid/ --sketch 4x4grid_sl.templ --constants CMAX=11,T_EXP=10.0,T_SLOW=10.0,T_FAST=0.7 --allowed 4x4grid_sl.allowed --restrictions 4x4grid_sl.restrictions  --optimality fast_to_target.optimal --properties none.properties cegis
 ```
 
 #### Other approaches
 
-Support is not yet implemented.
+A support for optimal feasibility analysis is not yet implemented.
 
 
 ### Partitioning 
@@ -156,13 +156,15 @@ and rejecting instantiations, i.e., instantiations that do not satisfy the prope
 In general, partitioning can be enabled by adding a switch `--partitioning`. Notice that this switch
 cannot be combined with `--optimality`.
 
+Below, we provide examples of using the different supported methods for partitioning on the provided case studies.
+
 #### CEGIS
 
-Currently has no working implementation for this type of analysis.
+Currently, there is no working implementation for this type of analysis.
 
 #### Lifting
 
-TODO: Description
+*TODO: Description*
 
 ```bash
 python --project examples/grid/ --sketch 4x4grid_sl.templ --constants CMAX=11,T_EXP=10.0,T_SLOW=10.0,T_FAST=0.9 --allowed 4x4grid_sl.allowed --restrictions 4x4grid_sl.restrictions  --properties single.properties --partitioning lift
@@ -170,11 +172,11 @@ python --project examples/grid/ --sketch 4x4grid_sl.templ --constants CMAX=11,T_
 
 #### Scheduler enumeration
 
-TODO: Descritption
+*TODO: Descritption*
 
 #### All other approaches
 
-TODO: Description
+*TODO: Description*
 
 ### Further Options
 
@@ -182,6 +184,6 @@ TODO: Description
 One may omit the check prerequisites if the sketch already ensures that all rewards are less than infinity.
 
 - `--print-stats` 
-Print statistics at the end. Helpful to understand the algorithm performance, but clutters output. 
+Print statistics at the end. Helpful to understand the algorithm performance but clutters the output. 
 
 ## The sources
