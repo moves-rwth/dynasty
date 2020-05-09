@@ -6,7 +6,7 @@ import os
 import time
 
 from dynasty.family_checkers.familychecker import FamilyCheckMethod
-from dynasty.family_checkers.quotientbased import LiftingChecker, AllInOneChecker,OneByOneChecker,ConsistentSchedChecker,SmtChecker
+from dynasty.family_checkers.quotientbased import LiftingChecker, AllInOneChecker,OneByOneChecker,ConsistentSchedChecker
 from dynasty.family_checkers.cegis import Synthesiser
 from dynasty import version
 from dynasty.jani.quotient_container import Engine
@@ -59,7 +59,7 @@ def dump_stats_to_file(path, keyword, constants, description, *args):
 @click.option("--print-stats", is_flag=True)
 @click.option('--check-prerequisites', help="should prerequisites be checked", is_flag=True)
 @click.option('--partitioning', help="Run partitioning instead of feasibility", is_flag=True)
-@click.argument("method",  type=click.Choice(['lift', 'cschedenum', 'allinone', 'onebyone', 'smt', 'cegis']))
+@click.argument("method",  type=click.Choice(['lift', 'cschedenum', 'allinone', 'onebyone', 'cegis']))
 def dynasty(project, sketch, allowed, properties, optimality, restrictions, constants, stats, engine, print_stats, check_prerequisites, partitioning, method):
     print("This is Dynasty version {}.".format(version()))
     approach = FamilyCheckMethod.from_string(method)
@@ -82,8 +82,6 @@ def dynasty(project, sketch, allowed, properties, optimality, restrictions, cons
         algorithm = OneByOneChecker()
     elif approach == FamilyCheckMethod.SchedulerIteration:
         algorithm = ConsistentSchedChecker()
-    elif approach == FamilyCheckMethod.SMT:
-        algorithm = SmtChecker()
     elif approach == FamilyCheckMethod.CEGIS:
         algorithm = Synthesiser(threads=1, check_prerequisites=check_prerequisites,
                               add_cuts=backward_cuts)

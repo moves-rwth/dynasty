@@ -25,8 +25,7 @@ class FamilyCheckMethod(Enum):
     SchedulerIteration = 1,
     DtmcIteration = 2,
     AllInOne = 3,
-    SMT = 4,
-    CEGIS = 5
+    CEGIS = 4
 
     @classmethod
     def from_string(cls, input):
@@ -44,8 +43,6 @@ class FamilyCheckMethod(Enum):
             return cls.DtmcIteration
         elif input == "allinone":
             return cls.AllInOne
-        elif input == "smt":
-            return cls.SMT
         elif input == "cegis":
             return cls.CEGIS
         else:
