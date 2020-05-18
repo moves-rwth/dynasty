@@ -73,11 +73,9 @@ setup(
     url="https://github.com/moves-rwth/sketching",
     description="Dynasty: probabilistic program sketches with PCTL formulae",
     long_description="Dynasty is a prototype implementation for synthesis in probabilistic program sketches and PCTL formulae",
-    packages=["dynasty", "dynasty.cegis", "dynasty.family_checkers", "dynasty.jani", "dynasty.model_handling", "dynasty.smt"],
-    install_requires=[ 'click', 'stormpy', 'pysmt', 'z3-solver'],
-    extras_require={
-
-    },
+    packages=["dynasty", "dynasty.cegis", "dynasty.family_checkers", "dynasty.jani", "dynasty.model_handling"],
+    install_requires=[ 'click', 'stormpy', 'z3-solver'],
+    extras_require={},
     package_data={
         'dynasty': [],
     },
