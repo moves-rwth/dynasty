@@ -105,6 +105,7 @@ class Verifier:
 
             # Translate the counterexamples into conflicts.
             analysed_conflicts = [self._conflict_analysis(conflict) for conflict in result]
+            analysed_conflicts.sort()
             if check_conflicts:
                 # Checking conflicts if for debugging purposes only.
                 # We double check whether the counterexamples violate the properties.
