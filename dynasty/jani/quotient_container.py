@@ -139,10 +139,10 @@ class JaniQuotientContainer:
             if c > max_count:
                 max_key = key
                 max_count = c
-        logger.debug("Splitting in {}".format(max_key))
 
         if max_key is None:
             return None
+        logger.debug("Splitting in {}".format(max_key))
 
         if max_key not in scheduler_selection_0:
             logger.warning("Unlikely case; not properly implemented.")

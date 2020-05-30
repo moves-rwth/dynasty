@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+import logging
 
 import stormpy
 import stormpy.core
@@ -8,8 +9,10 @@ from dynasty.jani.jani_quotient_builder import *
 from dynasty.jani.quotient_container import ThresholdSynthesisResult as ThresholdSynthesisResult
 from dynasty.jani.quotient_container import Engine as Engine
 from dynasty.annotated_property import AnnotatedProperty
-
 from dynasty.family_checkers.familychecker import FamilyChecker, HoleOptions
+
+logger = logging.getLogger(__file__)
+
 
 class QuotientBasedFamilyChecker(FamilyChecker):
     def __init__(self, *args, **kwargs):
@@ -114,7 +117,6 @@ class LiftingChecker(QuotientBasedFamilyChecker):
                 self._analyse_suboptions(oracle, hole_options[0], threshold)
             # TODO select right threshold.
             threshold_synthesis_result = oracle.decided(threshold)
-            print(type(hole_options[0]))
             if threshold_synthesis_result == dynasty.jani.quotient_container.ThresholdSynthesisResult.UNDECIDED:
                 logger.debug("Undecided.")
                 oracle.scheduler_color_analysis()

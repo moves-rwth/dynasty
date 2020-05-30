@@ -203,8 +203,6 @@ class ModelHandling:
                 if self._model.choice_origins.get_edge_index_set(act_index).is_subset_of(edge_0_indices):
                     assert self._model.choice_origins.get_edge_index_set(act_index).is_subset_of(edge_indices)
                     self._color_0_actions.set(act_index)
-
-
         selected_actions = stormpy.BitVector(self._color_0_actions)
 
 
@@ -214,7 +212,6 @@ class ModelHandling:
             #TODO many actions are always taken. We should preprocess these.
 
             if self._model.choice_origins.get_edge_index_set(act_index).is_subset_of(edge_indices):
-
                 selected_actions.set(act_index)
 
         keep_unreachable_states = False
