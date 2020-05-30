@@ -149,7 +149,7 @@ class Verifier:
         else:
             model = stormpy.build_model(instance, [p.property for p in self.properties])
 
-        #self._print_overlapping_guards(model)
+        self._print_overlapping_guards(model)
 
         model.reduce_to_state_based_rewards()
         building_time = time.time() - start_mb
@@ -295,8 +295,7 @@ class Verifier:
         if has_overlap_guards.number_of_set_bits() == 0:
             return
 
-        print("OVERLAP!")
-        print(has_overlap_guards)
+        raise ValueError("Model has overlapping guards. This is not allowed")
 
         assert model.has_choice_origins()
         choice_origins = model.choice_origins
@@ -308,5 +307,5 @@ class Verifier:
 
         for cs in conflicting_sets:
             print(choice_origins.model.restrict_edges(cs))
-        exit(1)
+
 
