@@ -377,7 +377,8 @@ class LiftingChecker(QuotientBasedFamilyChecker):
                 if len(v) == maxlength:
                     selected_splitter = k
             if maxlength == 1:
-                return []
+                raise RuntimeError("Undecided result, but cannot split")
+
 
         options = hole_options[selected_splitter]
         logger.debug("Splitting {}...".format([str(val) for val in options]))
