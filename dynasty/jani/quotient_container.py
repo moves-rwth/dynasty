@@ -71,6 +71,11 @@ class JaniQuotientContainer:
 
     def consider_subset(self, subset, indexed_suboptions):
         logger.debug("Consider sub-set of hole-options: {}".format(subset))
+
+        single_family_member = False
+        if max([len(options) for options in subset.values()]) == 1:
+            logger.debug("Submodel reflects a single family member: {}".format(",".join(["{}={}".format(k,v[0]) for k,v in subset.items()])))
+            single_family_member = True
         start_time = time.time()
 
         subcolors = self._edge_coloring.subcolors(indexed_suboptions)
@@ -84,6 +89,11 @@ class JaniQuotientContainer:
         self._mdp_handling.restrict(collected_edge_indices, color_0_indices)
         end_time = time.time()
         self._build_time += end_time - start_time
+        if single_family_member:
+
+            assert self._mdp_handling.submodel_is_dtmc(), "The subfamily is a singleton, but the submodel is not a DTMC"
+
+
         #self._mdp_handling.display_model()
 
         # newcolors = set()
