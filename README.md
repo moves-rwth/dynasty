@@ -16,9 +16,7 @@ And many more details can be found in:
 
 ## Overview
 We first give some installation guideline and then go into some usage examples.
-A [getting started guide](https://github.com/moves-rwth/dynasty/blob/master/TUTORIAL.md) that walks users through some options is provided seperately.
-
-**TV: I have not noticed that the "getting started guide" is the tutorial. Moreover, it seems to me that the tutorial is hardly readable without first going through the README. So, I suggest to (1) rename the "getting started guide" to a tutorial and (2) characterize better the relation of these two documents. Can one say that the tutorial provides a more detailed discussion of using various methods and options provided by the tool, but the reader is advised to first skim through the readme and then go through the tutorial?**
+A [tutorial](https://github.com/moves-rwth/dynasty/blob/master/TUTORIAL.md) that walks users through some options is provided seperately.
 
 ## Installation
 
@@ -90,8 +88,6 @@ For more information, look at the [examples](examples/).
 The goal of feasibility analysis is to find an instantiation of the holes such that the induced program satisfies the properties.
 All methods we provide for solving this problem are complete, i.e., the algorithms either report a feasible solution, or if there is no feasible instantiation, the algorithms eventually report so.
 
-**TV:The tutorial says something different! Namely: All methods presented here except the evolutionary algorithm are complete, i.e., if the there is no feasible instantiation, the algorithms eventually report so. Should be made uniform.**
-
 Notice that one has to be careful about potentially ill-formed sketches. The checks we perform are not necessarily sufficient.
 
 Below, we provide examples of using the different supported methods for feasability analysis on the provided case studies.
@@ -132,9 +128,6 @@ relative 0.0
 ```
 The above optimality criterion says that the probability described by the first line should be maximized among all feasible options.
 By increasing the relative tolerance given on the last line, the hard optimality constraint can be relaxed to requiring that the obtained instantiation is at least (1-tolerance)* "global maximum."
-
-**TV: The last sentence above seems somehow unfinished -- basically, after substituting some values, one gets: the instantiation is at least 0.5. What does it mean to be 0.5??? A few words should be added**
-
 When given such a criterion, the tool automatically switches to solving optimal feasibility.
 
 Below, we provide examples of using the different supported methods for optimal feasability analysis on the provided case studies.
@@ -190,6 +183,3 @@ One may omit the check prerequisites if the sketch already ensures that all rewa
 - `--print-stats` 
 Print statistics at the end. Helpful to understand the algorithm performance but clutters the output. 
 
-## The sources
-
-**TV: What should be here???**
