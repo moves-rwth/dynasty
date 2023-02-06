@@ -2,6 +2,9 @@ Dynasty
 =================================================
 [![Build Status](https://travis-ci.org/moves-rwth/dynasty.svg?branch=master)](https://travis-ci.org/moves-rwth/dynasty)
 
+Dynasty is now part of [PAYNT](https://github.com/randriu/synthesis). This repo is no longer maintained.
+---------------------------------
+
 Dynasty contains algorithms for synthesis in probabilistic program sketches.
 
 Some of the algorithms have been published:
